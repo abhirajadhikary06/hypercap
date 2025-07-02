@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hypercap</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="/static/nav_logo.png?v=1">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #ffffff;
+            color: #1a1a1a;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        header {
+            padding: 24px 0;
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 24px;
+            font-weight: 600;
+            color: #1a1a1a;
+            text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+
+        .logo-img {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #666666;
+            text-decoration: none;
+            font-weight: 400;
+            font-size: 15px;
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: #1a1a1a;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background: #f8f8f8;
+            border: 1px solid #e5e5e5;
+            border-radius: 6px;
+            color: #666666;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .social-icons a:hover {
+            background: #f0f0f0;
+            border-color: #d0d0d0;
+            color: #1a1a1a;
+        }
+
+        .social-icons img {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .main-title-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .main-logo-img {
+            width: 64px;
+            height: 64px;
+            border-radius: 12px;
+        }
+
+        .main-title {
+            font-size: 48px;
+            font-weight: 700;
+            color: #1a1a1a;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        .main-subtitle {
+            font-size: 18px;
+            color: #666666;
+            margin-bottom: 64px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+
+        /* Form Section */
+        .form-section {
+            max-width: 500px;
+            margin: 0 auto;
+            background: #fafafa;
+            border: 1px solid #e5e5e5;
+            border-radius: 12px;
+            padding: 40px;
+            position: relative;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 6px;
+            color: #1a1a1a;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px 16px;
+            background: #ffffff;
+            border: 1px solid #d0d0d0;
+            border-radius: 8px;
+            color: #1a1a1a;
+            font-size: 15px;
+            font-family: inherit;
+            transition: all 0.2s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #1a1a1a;
+            box-shadow: 0 0 0 3px rgba(26, 26, 26, 0.1);
+        }
+
+        .form-group input::placeholder {
+            color: #999999;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px 24px;
+            background: #1a1a1a;
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 500;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .submit-btn:hover {
+            background: #333333;
+        }
+
+        .submit-btn:active {
+            transform: translateY(1px);
+        }
+
+        .submit-btn:disabled {
+            background: #999999;
+            cursor: not-allowed;
+        }
+
+        .submit-btn .spinner {
+            display: none;
+            width: 16px;
+            height: 16px;
+            border: 2px solid #ffffff;
+            border-top: 2px solid transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .submit-btn.loading .spinner {
+            display: block;
+        }
+
+        .submit-btn.loading span {
+            visibility: hidden;
+        }
+
+        @keyframes spin {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        /* Error Messages */
+        .error-message {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 24px 0;
+            color: #dc2626;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        /* Cache Message */
+        .cache-message {
+            background: #ecfdf5;
+            border: 1px solid #6ee7b7;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 24px 0;
+            color: #047857;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        /* Screenshot Display */
+        .screenshot-section {
+            margin-top: 64px;
+            text-align: center;
+        }
+
+        .screenshot-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            color: #1a1a1a;
+        }
+
+        .screenshot-container {
+            position: relative;
+            display: inline-block;
+            background: #fafafa;
+            border: 1px solid #e5e5e5;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .screenshot-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .download-btn {
+            position: absolute;
+            top: 32px;
+            right: 32px;
+            background: #1a1a1a;
+            color: #ffffff;
+            padding: 10px;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .download-btn:hover {
+            background: #333333;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .download-btn i {
+            font-size: 16px;
+        }
+
+        /* Viewport Buttons */
+        .viewport-btn-group {
+            display: flex;
+            gap: 16px;
+            margin-top: 8px;
+        }
+
+        .viewport-btn {
+            background: #f8f8f8;
+            border: 1px solid #d0d0d0;
+            border-radius: 8px;
+            padding: 12px 16px;
+            cursor: pointer;
+            font-size: 20px;
+            color: #666666;
+            transition: all 0.2s;
+            outline: none;
+            position: relative;
+        }
+
+        .viewport-btn.active,
+        .viewport-btn:hover {
+            background: #1a1a1a;
+            color: #fff;
+            border-color: #1a1a1a;
+        }
+
+        .viewport-btn i {
+            pointer-events: none;
+        }
+
+        .viewport-btn[aria-label]::after {
+            content: attr(aria-label);
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1a1a1a;
+            color: #fff;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+        }
+
+        .viewport-btn:hover[aria-label]::after {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Cache Toast */
+        .cache-toast {
+            position: fixed;
+            bottom: 32px;
+            right: 32px;
+            z-index: 9999;
+            min-width: 240px;
+            max-width: 320px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+            opacity: 1;
+            transition: opacity 0.5s;
+        }
+
+        .cache-toast.hide {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        @media (max-width: 600px) {
+            .cache-toast {
+                right: 8px;
+                bottom: 8px;
+                left: 8px;
+                max-width: unset;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .nav-links {
+                gap: 20px;
+            }
+
+            .main-title {
+                font-size: 36px;
+            }
+
+            .main-subtitle {
+                font-size: 16px;
+            }
+
+            .form-section {
+                padding: 32px 24px;
+                margin: 0 16px;
+            }
+
+            .download-btn {
+                position: static;
+                display: inline-flex;
+                margin-top: 16px;
+            }
+
+            .main-title-container {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .main-logo-img {
+                width: 48px;
+                height: 48px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-title {
+                font-size: 28px;
+            }
+
+            .container {
+                padding: 0 16px;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .social-icons {
+                gap: 8px;
+            }
+
+            .viewport-btn-group {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .logo {
+                gap: 6px;
+                font-size: 20px;
+            }
+
+            .logo-img {
+                width: 24px;
+                height: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="/" class="logo">
+                    <img src="/static/nav_logo.png" alt="Hypercap Logo" class="logo-img">
+                    hypercap
+                </a>
+                <nav class="nav-links">
+                </nav>
+                <div class="social-icons">
+                    <a href="https://github.com/abhirajadhikary06/hypercap" title="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://hub.docker.com/r/abhirajadhikary06/hypercap" title="Docker">
+                        <i class="fab fa-docker"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="main-content">
+                <div class="main-title-container">
+                    <img src="/static/nav_logo.png" alt="Hypercap Logo" class="main-logo-img">
+                    <h1 class="main-title">Hypercap</h1>
+                </div>
+                
+                <p class="main-subtitle">
+                    <b>Hypercap</b> – <i>Instant page snapshots for developers, powered by headless precision</i>
+                </p>
+
+                <div class="form-section">
+                    <form method="POST" action="/" id="screenshot-form">
+                        <div class="form-group">
+                            <label for="url">Website URL</label>
+                            <input type="text" id="url" name="url" placeholder="e.g., example.com or https://example.com" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="device_type">Device Type</label>
+                            <div class="viewport-btn-group" id="viewport-btn-group">
+                                <button type="button" class="viewport-btn {% if device_type == 'desktop' %}active{% endif %}" data-value="desktop" aria-label="Desktop (1920x1080)">
+                                    <i class="fa-solid fa-desktop"></i>
+                                </button>
+                                <button type="button" class="viewport-btn {% if device_type == 'laptop' %}active{% endif %}" data-value="laptop" aria-label="Laptop (1366x768)">
+                                    <i class="fa-solid fa-laptop"></i>
+                                </button>
+                            </div>
+                            <input type="hidden" id="device_type" name="device_type" value="{{ device_type|default('desktop') }}">
+                        </div>
+                        
+                        <button type="submit" class="submit-btn" id="submit-btn">
+                            <span>Generate Screenshot</span>
+                            <span class="spinner"></span>
+                        </button>
+                    </form>
+                </div>
+
+                {% if error %}
+                    <div class="error-message">
+                        {{ error }}
+                    </div>
+                {% endif %}
+                
+                {% if screenshot_path %}
+                    {% if cached %}
+                        <div class="cache-message cache-toast" id="cache-toast">
+                            Screenshot served from cache
+                        </div>
+                    {% endif %}
+                    <div class="screenshot-section">
+                        <h2 class="screenshot-title">Your Screenshot</h2>
+                        <div class="screenshot-container">
+                            <img src="{{ url_for('static', filename=screenshot_path) }}?{{ cache_buster }}" alt="Website Screenshot">
+                            <a href="{{ url_for('download_screenshot', filename=filename) }}" class="download-btn">
+                                <i class="fa-solid fa-file-arrow-down"></i>
+                            </a>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.getElementById('screenshot-form');
+            const submitBtn = document.getElementById('submit-btn');
+            const btns = document.querySelectorAll('.viewport-btn');
+            const hiddenInput = document.getElementById('device_type');
+            const urlInput = document.getElementById('url');
+
+            // Handle viewport button clicks
+            btns.forEach(btn => {
+                btn.addEventListener('click', function () {
+                    btns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    hiddenInput.value = btn.getAttribute('data-value');
+                });
+            });
+
+            // Form submission with relaxed URL validation
+            form.addEventListener('submit', function (e) {
+                const urlValue = urlInput.value.trim();
+                // Allow simple domain names (e.g., "grok.com") or full URLs
+                const urlPattern = /^(?:(https?:\/\/)?([\w\d\-]+\.)+[\w\d\-]+(\/.*)?|[\w\d\-]+\.[\w\d\-]+)$/;
+                if (!urlPattern.test(urlValue)) {
+                    e.preventDefault();
+                    urlInput.focus();
+                    urlInput.style.borderColor = '#dc2626';
+                    return;
+                }
+
+                submitBtn.disabled = true;
+                submitBtn.classList.add('loading');
+            });
+
+            // Reset URL input border on input
+            urlInput.addEventListener('input', function () {
+                urlInput.style.borderColor = '#d0d0d0';
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const cacheToast = document.getElementById('cache-toast');
+            if (cacheToast) {
+                setTimeout(() => {
+                    cacheToast.classList.add('hide');
+                }, 1500);
+            }
+        });
+    </script>
+</body>
+</html>
