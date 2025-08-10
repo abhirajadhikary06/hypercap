@@ -14,7 +14,7 @@ HyperCap is a simple web tool that lets you take screenshots of any website. You
 ## How to Use HyperCap
 
 1. **Visit the Website**: Open HyperCap in your web browser.
-2. **Enter a Website Address**: Type the URL of the website you want to capture (e.g., "grok.com" or "https://grok.com").
+2. **Enter a Website Address**: Type the URL of the website you want to capture (e.g., "example.com" or "https://example.com").
 3. **Choose a Device**: Select whether you want the screenshot to look like it was taken on a desktop or laptop screen.
 4. **Click Generate**: Press the "Generate Screenshot" button, and wait a moment.
 5. **View and Download**: Once the screenshot appears, you can view it on the page or download it to your computer.
